@@ -20,4 +20,21 @@ CREATE TABLE `tb_base_user` (
   PRIMARY KEY (`id`),
   KEY `nickName` (`nickName`),
   KEY `status` (`status`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+/*用户登录表*/
+DROP TABLE IF EXISTS `tb_user_login` ;
+CREATE TABLE `tb_user_login` (
+  `id` bigint(64) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `type` int(8) NOT NULL DEFAULT '0' COMMENT '用户登录的类型type',
+  `uid` bigint(64) NOT NULL,
+  `loginToken` varchar(64) DEFAULT NULL,
+  `loginPassword` varchar(64) DEFAULT NULL,
+  `loginExt` varchar(64) DEFAULT NULL,
+  `createAt` datetime DEFAULT NULL,
+  `updateAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid_login_key` (`type`,`uid`),
+  UNIQUE KEY `login_token` (`type`,`loginToken`,`loginPassword`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8
+
